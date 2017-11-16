@@ -1,10 +1,19 @@
-<navigator class="media-box" wx:for='{{ entities }}' wx:key='{{ item.id }}'>
-    <view class="media-box__bd">
-        <view class="media-box__title">
+<import src="/templates/spinkit.wxml" />
+<import src="/templates/footer.wxml" />
+
+<navigator url="/pages/posts/show?id={{ item.id }}" class="weui-media-box weui-media-box_appmsg" wx:for="{{ entities }}" wx:key="{{ item.id }}">
+    <view class="weui-media-box__hd weui-media-box__hd_in-appmsg" wx:if="{{ item.featured_media }}">
+        <image class="weui-media-box__thumb" src="{{ item._embedded['wp:featuredmedia'][0].media_details.sizes.thumbnail.source_url }}" />
+    </view>
+    <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+        <view class="weui-media-box__title">
             {{ item.title.rendered }}
         </view>
-        <view class="media-box__desc">
-            {{ item.excerpt.rendered }}
+        <view class="weui-media-box__desc">
+            {{ item.excerpt.plaintext }}
         </view>
     </view>
 </navigator>
+
+<template is="spinner" data="{{ isLoading }}" />
+<template is="footer" data="{{ isEarth }}" />
